@@ -39,21 +39,13 @@ public class FreeLookMod implements ClientModInitializer {
             Screen screen = new FreelookScreen();
             client.setScreen(screen);
         }
-        if (!config.isBlocked()) {
-            if (config.isToggle()) {
-                return;
-            }
-            if (freeLookKeyBind.isPressed() && !isFreeLooking) {
-                startFreeLooking(client);
-            } else if (!freeLookKeyBind.isPressed() && isFreeLooking) {
-                stopFreeLooking(client);
-            }
-        } else if (freeLookKeyBind.wasPressed()) {
-            if (!isFreeLooking) {
-                startFreeLooking(client);
-            } else if (freeLookKeyBind.isPressed()) {
-                stopFreeLooking(client);
-            }
+        if (config.isToggle()) {
+            return;
+        }
+        if (freeLookKeyBind.isPressed() && !isFreeLooking) {
+            startFreeLooking(client);
+        } else if (!freeLookKeyBind.isPressed() && isFreeLooking) {
+            stopFreeLooking(client);
         }
     }
 

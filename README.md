@@ -6,18 +6,14 @@
 </div>
 
 
-# Freelook
+# THINGS
 
-A minecraft mod which allows the user to turn their heads without changing the direction in whch you are moving
+A minecraft mod which allows the user to change their server=side look direction without changing it client-side
 
 ## Usage
 
-If you simply want to use the mod download it from [here](https://www.curseforge.com/minecraft/mc-mods/freelook-fabric)
+Clone the repo and run build.gradle
 
-
-## Getting Started (Developing)
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See `building from source` to compile the mod.
 
 ### Prerequisites
 

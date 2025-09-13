@@ -12,7 +12,7 @@ A minecraft mod which allows the user to change their server=side look direction
 
 ## Usage
 
-Clone the repo and run build.gradle
+Clone the repo and run ./gradlew build
 
 
 ### Prerequisites

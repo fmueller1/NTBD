@@ -46,10 +46,6 @@ public class FreelookScreen extends Screen {
             config.nextPerspective();
             button.setMessage(getPerspectiveText());
         }).dimensions(centerX - 100, baseY + lineHeight, 200, 20).build());
-        this.addDrawableChild(new ButtonWidget.Builder(Text.translatable("freelook.menu.disabled_servers"), button -> {
-            assert this.client != null;
-            this.client.setScreen(new DisabledServerScreen(this));
-        }).dimensions(centerX - 100, baseY + 2 * lineHeight, 200, 20).build());
 
 
     }

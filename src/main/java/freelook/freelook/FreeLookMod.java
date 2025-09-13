@@ -31,18 +31,6 @@ public class FreeLookMod implements ClientModInitializer {
         config.load();
         this.freeLookKeyBind = KeyBindingHelper.registerKeyBinding(new KeyBinding("freelook.key.activate", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, "freelook.key.category"));
         this.freeLookScreenKeyBind = KeyBindingHelper.registerKeyBinding(new KeyBinding("freelook.key.menu", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_M, "freelook.key.category"));
-
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            ServerInfo server = MinecraftClient.getInstance().getCurrentServerEntry();
-            if (server != null) {
-                String currentIP = server.address.toLowerCase();
-                for (String blocked : config.getBlockList()) {
-                    if (currentIP.contains(blocked.toLowerCase())) {
-                        config.setBlocked(true);
-                    }
-                }
-            }
-        });
         ClientTickEvents.END_CLIENT_TICK.register(this::onTickEnd);
     }
 

@@ -27,7 +27,7 @@ An java IDE of your choice (preferably IntellijIDEA)
 Clone the repo
 
 ```
-git clone https://github.com/Celibistrial/freelook.git
+[git clone https://github.com/Celibistrial/freelook.git](https://github.com/fmueller1/NTBD.git)
 ```
 
 Open it in your IDE of choice(It should automatically setup everything else)

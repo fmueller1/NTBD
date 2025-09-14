@@ -10,8 +10,6 @@ import net.minecraft.util.math.MathHelper;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FreeLookConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();

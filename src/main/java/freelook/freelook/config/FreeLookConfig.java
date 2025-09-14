@@ -18,16 +18,6 @@ public class FreeLookConfig {
 
     private boolean isToggle = true;
     private int perspective = 3;
-    private boolean isBlocked = false;
-
-    private List<String> blockList = new ArrayList<>(List.of(
-            "play.hypixel.net",
-            "mc.hypixel.net"
-    ));
-
-    public List<String> getBlockList() {
-        return blockList;
-    }
 
     public synchronized boolean isToggle() {
         return isToggle;
@@ -35,14 +25,6 @@ public class FreeLookConfig {
 
     public synchronized void setToggle(boolean toggle) {
         this.isToggle = toggle;
-    }
-
-    public boolean isBlocked() {
-        return isBlocked;
-    }
-
-    public void setBlocked(boolean blocked) {
-        isBlocked = blocked;
     }
 
     public synchronized void nextPerspective() {
@@ -96,7 +78,6 @@ public class FreeLookConfig {
             var obj = GSON.fromJson(fr, FreeLookConfig.class);
             setPerspective(obj.perspective);
             setToggle(obj.isToggle);
-            blockList = obj.blockList != null ? new ArrayList<>(obj.blockList) : new ArrayList<>();
         } catch (Exception e) {
             FreeLookMod.LOGGER.error("Failed to read file {}", file.getName(), e);
         }

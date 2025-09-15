@@ -14,8 +14,11 @@ import java.io.FileWriter;
 public class FreeLookConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    private boolean isToggle = true;
-    private int perspective = 1;
+    private static final boolean DEFAULT_TOGGLE = true;
+    private static final int DEFAULT_PERSPECTIVE = 1;
+
+    private boolean isToggle = DEFAULT_TOGGLE;
+    private int perspective = DEFAULT_PERSPECTIVE;
 
     public synchronized boolean isToggle() {
         return isToggle;
@@ -61,8 +64,8 @@ public class FreeLookConfig {
     }
 
     public void reset() {
-        setToggle(false);
-        setPerspective(3);
+        setToggle(DEFAULT_TOGGLE);
+        setPerspective(DEFAULT_PERSPECTIVE);
     }
 
     public void load() {

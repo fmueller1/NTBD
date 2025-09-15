@@ -38,11 +38,25 @@ public class FreeLookMod implements ClientModInitializer {
             client.setScreen(screen);
         }
         if (config.isToggle()) {
-            return;
+            freelookToggle(client);
+        } else{
+            freelookHold(client);
         }
+    }
+
+    private void freelookHold(MinecraftClient client){
         if (freeLookKeyBind.isPressed() && !isFreeLooking) {
             startFreeLooking(client);
         } else if (!freeLookKeyBind.isPressed() && isFreeLooking) {
+            stopFreeLooking(client);
+        }
+    }
+
+    private void freelookToggle(MinecraftClient client){
+        boolean buttonDown = freeLookKeyBind.isPressed() && !freeLookKeyBind.wasPressed();
+        if(buttonDown && !isFreeLooking){
+            startFreeLooking(client);
+        } else if(buttonDown && isFreeLooking){
             stopFreeLooking(client);
         }
     }

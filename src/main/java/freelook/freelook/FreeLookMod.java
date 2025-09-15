@@ -58,7 +58,7 @@ public class FreeLookMod implements ClientModInitializer {
         wasPressed = freeLookKeyBind.isPressed();
         if(buttonDown && !isFreeLooking){
             startFreeLooking(client);
-        } else if(buttonDown && isFreeLooking){
+        } else if(buttonDown){
             stopFreeLooking(client);
         }
     }

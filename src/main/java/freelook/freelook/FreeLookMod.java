@@ -23,6 +23,7 @@ public class FreeLookMod implements ClientModInitializer {
     private static Perspective lastPerspective;
     private KeyBinding freeLookKeyBind;
     private KeyBinding freeLookScreenKeyBind;
+    boolean wasPressed;
 
     @Override
     public void onInitializeClient() {
@@ -53,7 +54,8 @@ public class FreeLookMod implements ClientModInitializer {
     }
 
     private void freelookToggle(MinecraftClient client){
-        boolean buttonDown = freeLookKeyBind.isPressed() && !freeLookKeyBind.wasPressed();
+        boolean buttonDown = freeLookKeyBind.isPressed() && !wasPressed;
+        wasPressed = freeLookKeyBind.isPressed();
         if(buttonDown && !isFreeLooking){
             startFreeLooking(client);
         } else if(buttonDown && isFreeLooking){

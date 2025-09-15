@@ -15,7 +15,7 @@ public class FreeLookConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private boolean isToggle = true;
-    private int perspective = 3;
+    private int perspective = 1;
 
     public synchronized boolean isToggle() {
         return isToggle;

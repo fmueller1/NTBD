@@ -64,6 +64,7 @@ public class FreeLookMod implements ClientModInitializer {
     }
 
     private void startFreeLooking(MinecraftClient client) {
+        client.player.setInvisible(true);
         lastPerspective = client.options.getPerspective();
         // only switch to configured perspective if in first person, looks weird otherwise
         if (lastPerspective == Perspective.FIRST_PERSON) {
@@ -73,6 +74,7 @@ public class FreeLookMod implements ClientModInitializer {
     }
 
     private void stopFreeLooking(MinecraftClient client) {
+        client.player.setInvisible(false);
         isFreeLooking = false;
         client.options.setPerspective(lastPerspective);
     }

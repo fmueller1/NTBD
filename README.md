@@ -10,11 +10,6 @@
 
 A minecraft mod which allows the user to change their server-side look direction without changing it client-side
 
-## Usage
-
-Clone the repo and run gradlew build
-
-
 ### Prerequisites
 
 An java IDE of your choice (preferably IntellijIDEA)

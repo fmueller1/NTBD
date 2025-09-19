@@ -1,15 +1,16 @@
 package freelook.freelook;
 
 public class CannonMath {
-    double initialOffsetY = 0;
-    double initialOffsetX = 0;
-    double initialOffsetZ = 0.25;
-    double surfaceOffset = 0.25;
-    double distanceFromSurface = 0.375;
+    final double initialOffsetY = 0;
+    final double initialOffsetX = 0;
+    final double initialOffsetZ = 0.25;
+    final double surfaceOffset = 0.25;
+    final double distanceFromSurface = 0.375;
     double sign = 0;
     double finalXOffset = getFinalXOffset(0);
     double finalZOffset = distanceFromSurface + sign*initialOffsetX + surfaceOffset;
     double doRotation;
+
     public CannonMath(){
         if(distanceFromSurface > 0) sign=1;
         if(distanceFromSurface < 0) sign=-1;
@@ -26,15 +27,24 @@ public class CannonMath {
         return distanceFromSurface*Math.cos(cameraYaw) + initialOffsetY;
     }
 
-    public double getCameraYaw(double cameraPitch, double cameraYaw){
+    public double getNewCameraYaw(double cameraPitch, double cameraYaw){
         finalXOffset = getFinalXOffset(cameraYaw);
         double theta = 0;
+        theta = Math.atan((finalXOffset*Math.tan(cameraYaw) - initialOffsetZ)/(distanceFromSurface));
+        theta = theta * 180 / Math.PI + 180*doRotation;
         return theta;
     }
 
-    public double getCameraPitch(double cameraPitch, double cameraYaw){
+    public double getNewCameraPitch(double cameraPitch, double cameraYaw){
         finalXOffset = getFinalXOffset(cameraYaw);
         double theta = 0;
+        theta = finalZOffset*Math.tan(cameraPitch);
+        theta *= Math.abs(1/Math.cos(cameraYaw));
+        theta -= initialOffsetZ;
+        double denominator = distanceFromSurface * Math.abs(1/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
+        theta /= denominator;
+        theta = Math.atan(theta);
+        theta = theta * 180 / Math.PI;
         return theta;
     }
 }

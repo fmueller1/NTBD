@@ -16,9 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EntityMixin implements CameraOverriddenEntity {
     @Shadow
     public abstract void setAngles(float yaw, float pitch);
-
-    @Shadow
-    private float pitch;
     @Unique
     private float cameraPitch;
 

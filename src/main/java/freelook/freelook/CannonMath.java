@@ -6,8 +6,9 @@ public class CannonMath {
     final double initialOffsetZ = 0;
     final double surfaceOffset = -0.25;
     final double distanceFromSurface = 0.375;
+    //non-final variables are defined in the constructor as their values depend on non constants.
     double sign = 0;
-    double finalXOffset = distanceFromSurface + sign*surfaceOffset + initialOffsetX;
+    double finalXOffset = 0;
     double finalZOffset = getFinalZOffset(0);
     double doRotation;
 

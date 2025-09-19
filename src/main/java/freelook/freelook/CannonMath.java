@@ -38,7 +38,7 @@ public class CannonMath {
     }
 
     public double getNewCameraPitch(double cameraPitch, double cameraYaw){
-        finalXOffset = getFinalZOffset(cameraYaw);
+        finalZOffset = getFinalZOffset(cameraYaw);
         double theta = finalXOffset*Math.tan(cameraPitch);
         theta *= Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
         theta -= initialOffsetZ;

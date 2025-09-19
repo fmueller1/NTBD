@@ -42,11 +42,59 @@ public abstract class EntityMixin implements CameraOverriddenEntity {
     }
 
     double getAlternateViewYaw(){
-        return this.cameraYaw;
+        double camPitch = this.cameraPitch * Math.PI/180;
+        double camYaw = this.cameraYaw * Math.PI/180;
+        double Oiz = 0;
+        double Oix = 0;
+        double Oiy = 0.25;
+        double Os = 0.25;
+        double Dsxs = 0.375;
+        double S = 0;
+        if(Dsxs > 0) S=1;
+        if(Dsxs < 0) S=-1;
+        double Zf = Dsxs*Math.cos(this.cameraYaw) + Oiz;
+        double Xf = Dsxs + S*Oix + Os;
+        double M = 0;
+        if(Zf > 0) M=0;
+        if(Zf < 0) M=1;
+        if(Zf == 0){
+            if(Xf > 0) M=0;
+            if(Xf < 0) M=1;
+        }
+        double theta = Math.atan((Xf*Math.tan(this.cameraYaw) - Oiz)/(Dsxs));
+        theta = theta * 180 / Math.PI + 180*M;
+        return theta;
     }
 
     double getAlternateViewPitch(){
-        return this.cameraPitch;
+        double camPitch = this.cameraPitch * Math.PI/180;
+        double camYaw = this.cameraYaw * Math.PI/180;
+        double initialOffsetY = 0;
+        double initialOffsetX = 0;
+        double initialOffsetZ = 0.25;
+        double surfaceOffset = 0.25;
+        double distanceFromSurface = 0.375;
+        double sign = 0;
+        if(distanceFromSurface > 0) sign=1;
+        if(distanceFromSurface < 0) sign=-1;
+        double finalXOffset = distanceFromSurface*Math.cos(this.cameraYaw) + initialOffsetY;
+        double finalZOffset = distanceFromSurface + sign*initialOffsetX + surfaceOffset;
+        double doRotation;
+        if(finalXOffset > 0) doRotation=0;
+        if(finalXOffset < 0) doRotation=1;
+        if(finalXOffset == 0){
+            if(finalZOffset > 0) doRotation=0;
+            if(finalZOffset < 0) doRotation=1;
+        }
+        double theta = 0;
+        theta = finalZOffset*Math.tan(this.cameraPitch);
+        theta *= Math.abs(1/Math.cos(this.cameraYaw));
+        theta -= initialOffsetZ;
+        double denominator = distanceFromSurface * Math.abs(1/Math.cos(getAlternateViewPitch()));
+        theta /= denominator;
+        theta = Math.atan(theta);
+        theta = theta * 180 / Math.PI;
+        return theta;
     }
 
     @Override

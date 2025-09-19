@@ -7,7 +7,7 @@ public class CannonMath {
     final double surfaceOffset = -0.25;
     final double distanceFromSurface = 0.375;
     double sign = 0;
-    double finalXOffset = distanceFromSurface + sign*initialOffsetX + surfaceOffset;
+    double finalXOffset = distanceFromSurface + sign*surfaceOffset + initialOffsetX;
     double finalZOffset = getFinalZOffset(0);
     double doRotation;
 

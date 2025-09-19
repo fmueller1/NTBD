@@ -48,7 +48,7 @@ public class CannonMath {
     }
 
     private double degreeToRad(double num){
-        return num * Math.PI/180;
+        return num / Math.PI * 180;
     }
 
     private  double radToDegree(double num){

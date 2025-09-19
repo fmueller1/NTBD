@@ -1,10 +1,10 @@
 package freelook.freelook;
 
 public class CannonMath {
-    final double initialOffsetY = 0;
+    final double initialOffsetY = 0.25;
     final double initialOffsetX = 0;
     final double initialOffsetZ = 0.25;
-    final double surfaceOffset = 0.25;
+    final double surfaceOffset = -0.25;
     final double distanceFromSurface = 0.375;
     double sign = 0;
     double finalXOffset = distanceFromSurface + sign*initialOffsetX + surfaceOffset;

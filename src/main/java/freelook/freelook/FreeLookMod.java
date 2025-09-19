@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class FreeLookMod implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Freelook");
     public static final FreeLookConfig config = new FreeLookConfig();
-    public static final CannonMath cannomMath = new CannonMath();
+    public static final CannonMath cannonMath = new CannonMath();
     public static boolean isFreeLooking = false;
     private static Perspective lastPerspective;
     private KeyBinding freeLookKeyBind;

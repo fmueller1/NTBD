@@ -42,11 +42,11 @@ public abstract class EntityMixin implements CameraOverriddenEntity {
     }
 
     double getAlternateViewYaw(){
-        return FreeLookMod.cannomMath.getNewCameraYaw(this.cameraPitch, this.cameraYaw);
+        return FreeLookMod.cannonMath.getNewCameraYaw(this.cameraPitch, this.cameraYaw);
     }
 
     double getAlternateViewPitch(){
-        return FreeLookMod.cannomMath.getNewCameraPitch(this.cameraPitch, this.cameraYaw);
+        return FreeLookMod.cannonMath.getNewCameraPitch(this.cameraPitch, this.cameraYaw);
     }
 
     @Override

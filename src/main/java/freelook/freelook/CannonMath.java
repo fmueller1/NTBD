@@ -21,6 +21,8 @@ public class CannonMath {
             if(finalZOffset > 0) doRotation=0;
             if(finalZOffset < 0) doRotation=1;
         }
+
+        finalXOffset = distanceFromSurface + sign*surfaceOffset + initialOffsetX;
     }
 
     private double getFinalZOffset(double cameraYaw){

@@ -39,9 +39,9 @@ public class CannonMath {
         finalXOffset = getFinalZOffset(cameraYaw);
         double theta = 0;
         theta = finalZOffset*Math.tan(cameraPitch);
-        theta *= Math.abs(1/Math.cos(cameraYaw));
+        theta *= Math.abs(1/Math.cos(degreeToRad(getNewCameraYaw(cameraPitch, cameraYaw))));
         theta -= initialOffsetZ;
-        double denominator = distanceFromSurface * Math.abs(1/Math.cos(degreeToRad(getNewCameraYaw(cameraPitch, cameraYaw))));
+        double denominator = finalXOffset * Math.abs(1/Math.cos(degreeToRad(getNewCameraYaw(cameraPitch, cameraYaw))));
         theta /= denominator;
         theta = Math.atan(theta);
         return radToDegree(theta);

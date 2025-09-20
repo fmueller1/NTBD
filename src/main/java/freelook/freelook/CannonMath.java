@@ -1,4 +1,4 @@
-package mathTest.MathTest;
+package freelook.freelook;
 
 public class CannonMath {
     final double initialOffsetX = 0;

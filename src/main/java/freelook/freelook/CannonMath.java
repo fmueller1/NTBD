@@ -1,6 +1,7 @@
 package freelook.freelook;
 
 public class CannonMath {
+    final int cannonRot = 1;
     final double initialOffsetX = 0;
     final double initialOffsetY = 0.25;
     final double initialOffsetZ = 0;
@@ -28,9 +29,18 @@ public class CannonMath {
         return 0.0;
     }
 
+    private double getRotatedYaw(double cameraYaw){
+        cameraYaw += 90*cannonRot;
+        while(cameraYaw >= 180){
+            cameraYaw -= 180;
+        }
+        return cameraYaw;
+    }
+
     public double getNewCameraYaw(double cameraPitch, double cameraYaw){
+        double rotatedYaw = getRotatedYaw(cameraYaw);
         doRotation = getDoRotation(cameraYaw);
-        double theta = Math.atan((finalXOffset*Math.tan(cameraYaw) - initialOffsetZ)/(distanceFromSurface));
+        double theta = Math.atan((finalXOffset*Math.tan(rotatedYaw) - initialOffsetZ)/(distanceFromSurface));
         theta = Math.toDegrees(theta);
         theta += 180d*doRotation;
         theta = Math.toRadians(theta);
@@ -38,8 +48,9 @@ public class CannonMath {
     }
 
     public double getNewCameraPitch(double cameraPitch, double cameraYaw){
+        double rotatedYaw = getRotatedYaw(cameraYaw);
         double theta = finalXOffset*Math.tan(cameraPitch);
-        theta *= Math.abs(1d/Math.cos(cameraYaw));
+        theta *= Math.abs(1d/Math.cos(rotatedYaw));
         theta -= initialOffsetY;
         double denominator = distanceFromSurface * Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
         theta /= denominator;

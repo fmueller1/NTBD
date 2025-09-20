@@ -1,5 +1,7 @@
 package freelook.freelook;
 
+import org.joml.Vector2d;
+
 public class CannonMath {
     final int cannonRot = 1;
     final double initialOffsetX = 0;
@@ -20,8 +22,8 @@ public class CannonMath {
     }
 
     private double getDoRotation(double cameraYaw){
-        if(cameraYaw <= -Math.PI/2) return -1.0;
-        if(cameraYaw >= Math.PI/2) return 1.0;
+        if(cameraYaw <= -Math.PI/2d) return -1.0;
+        if(cameraYaw >= Math.PI/2d) return 1.0;
         return 0.0;
     }
 
@@ -34,9 +36,8 @@ public class CannonMath {
     }
 
     public double getNewCameraYaw(double cameraPitch, double cameraYaw){
-        double rotatedYaw = getRotatedYaw(cameraYaw);
-        doRotation = getDoRotation(rotatedYaw);
-        double theta = Math.atan((finalXOffset*Math.tan(rotatedYaw) - initialOffsetZ)/(distanceFromSurface));
+        doRotation = getDoRotation(cameraYaw);
+        double theta = Math.atan((finalXOffset*Math.tan(cameraYaw) - initialOffsetZ)/(distanceFromSurface));
         theta = Math.toDegrees(theta);
         theta += 180d*doRotation;
         theta = Math.toRadians(theta);
@@ -44,14 +45,21 @@ public class CannonMath {
     }
 
     public double getNewCameraPitch(double cameraPitch, double cameraYaw){
-        double rotatedYaw = getRotatedYaw(cameraYaw);
         double theta = finalXOffset*Math.tan(cameraPitch);
-        theta *= Math.abs(1d/Math.cos(rotatedYaw));
+        theta *= Math.abs(1d/Math.cos(cameraYaw));
         theta -= initialOffsetY;
         double denominator = distanceFromSurface * Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
         theta /= denominator;
         System.out.println(theta);
         theta = Math.atan(theta);
         return theta;
+    }
+
+    public Vector2d getNewCameraDirection(double cameraPitch, double cameraYaw){
+        Vector2d vec = new Vector2d();
+        double rotatedYaw = getRotatedYaw(cameraYaw);
+        vec.x = getNewCameraYaw(cameraPitch, rotatedYaw);
+        vec.y = getNewCameraPitch(cameraPitch, vec.x);
+        return vec;
     }
 }

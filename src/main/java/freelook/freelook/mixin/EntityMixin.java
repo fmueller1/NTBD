@@ -5,6 +5,7 @@ import freelook.freelook.FreeLookMod;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Vector2d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -25,28 +26,19 @@ public abstract class EntityMixin implements CameraOverriddenEntity {
     @Inject(method = "changeLookDirection", at = @At("HEAD"), cancellable = true)
     public void changeCameraLookDirection(double xDelta, double yDelta, CallbackInfo ci) {
         //noinspection ConstantValue// IntelliJ is incorrect here, this code block is reachable
-        if (FreeLookMod.isFreeLooking && (Object) this instanceof ClientPlayerEntity) {
-            double pitchDelta = (yDelta * 0.15);
-            double yawDelta = (xDelta * 0.15);
-
-            this.cameraPitch = MathHelper.clamp(this.cameraPitch + (float) pitchDelta, -90.0f, 90.0f);
-            this.cameraYaw += (float) yawDelta;
-            this.setAngles((float)getAlternateViewYaw(),(float)getAlternateViewPitch());
-
-            ci.cancel();
-
+        if (!(FreeLookMod.isFreeLooking && (Object) this instanceof ClientPlayerEntity)) {
+            return;
         }
-    }
-    @Unique
-    double getAlternateViewYaw(){
-        System.out.println(FreeLookMod.cannonMath.getNewCameraYaw(Math.toRadians(this.cameraPitch), Math.toRadians(this.cameraYaw)));
-        double angle = FreeLookMod.cannonMath.getNewCameraYaw(Math.toRadians(this.cameraPitch), Math.toRadians(this.cameraYaw));
-        return Math.toDegrees(angle);
-    }
-    @Unique
-    double getAlternateViewPitch(){
-        double angle = FreeLookMod.cannonMath.getNewCameraPitch(Math.toRadians(this.cameraPitch), Math.toRadians(this.cameraYaw));
-        return Math.toDegrees(angle);
+        double pitchDelta = (yDelta * 0.15);
+        double yawDelta = (xDelta * 0.15);
+
+        this.cameraPitch = MathHelper.clamp(this.cameraPitch + (float) pitchDelta, -90.0f, 90.0f);
+        this.cameraYaw += (float) yawDelta;
+
+        Vector2d newDirection = FreeLookMod.cannonMath.getNewCameraDirection(Math.toRadians(this.cameraPitch), Math.toRadians(this.cameraYaw));
+        this.setAngles((float)Math.toDegrees(newDirection.x),(float)Math.toDegrees(newDirection.y));
+
+        ci.cancel();
     }
 
     @Override

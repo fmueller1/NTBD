@@ -32,6 +32,9 @@ public class CannonMath {
         while(cameraYaw >= Math.PI){
             cameraYaw -= Math.PI;
         }
+        while(cameraYaw <= Math.PI){
+            cameraYaw += Math.PI;
+        }
         return cameraYaw;
     }
 

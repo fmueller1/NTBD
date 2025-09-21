@@ -61,8 +61,8 @@ public class CannonMath {
         double theta = finalXOffset*Math.tan(cameraPitch);
         theta *= Math.abs(1d/Math.cos(cameraYaw));
         theta -= initialOffsetY;
-        double denominator = distanceFromSurface;
-        denominator *= Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
+        double denominator = Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
+        denominator *= distanceFromSurface;
         theta /= denominator;
         theta = Math.atan(theta);
         return theta;

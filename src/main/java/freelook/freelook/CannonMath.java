@@ -28,12 +28,24 @@ public class CannonMath {
     }
 
     private double getRotatedYaw(double cameraYaw){
-        cameraYaw += Math.PI*cannonRot/2;
+        cameraYaw += Math.PI*cannonRot/2.0;
         while(cameraYaw >= Math.PI){
             cameraYaw -= Math.PI;
         }
         return cameraYaw;
     }
+
+    private double undoYawRotation(double cameraYaw){
+        cameraYaw -= Math.PI*cannonRot/2.0;
+        while(cameraYaw >= Math.PI){
+            cameraYaw -= Math.PI;
+        }
+        while(cameraYaw <= Math.PI){
+            cameraYaw += Math.PI;
+        }
+        return cameraYaw;
+    }
+
 
     public double getNewCameraYaw(double cameraPitch, double cameraYaw){
         doRotation = getDoRotation(cameraYaw);
@@ -41,7 +53,7 @@ public class CannonMath {
         theta = Math.toDegrees(theta);
         theta += 180d*doRotation;
         theta = Math.toRadians(theta);
-        return theta;
+        return undoYawRotation(theta);
     }
 
     public double getNewCameraPitch(double cameraPitch, double cameraYaw){

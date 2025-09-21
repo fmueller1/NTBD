@@ -50,7 +50,6 @@ public class CannonMath {
         theta -= initialOffsetY;
         double denominator = distanceFromSurface * Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
         theta /= denominator;
-        System.out.println(theta);
         theta = Math.atan(theta);
         return theta;
     }

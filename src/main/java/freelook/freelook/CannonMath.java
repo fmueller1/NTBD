@@ -47,20 +47,19 @@ public class CannonMath {
     }
 
 
-    public double getNewCameraYaw(double cameraPitch, double cameraYaw){
+    private double getNewCameraYaw(double cameraPitch, double cameraYaw){
         doRotation = getDoRotation(cameraYaw);
         double theta = Math.atan((finalXOffset*Math.tan(cameraYaw) - initialOffsetZ)/(distanceFromSurface));
-        theta = Math.toDegrees(theta);
-        theta += 180d*doRotation;
-        theta = Math.toRadians(theta);
+        theta += Math.PI*doRotation;
         return undoYawRotation(theta);
     }
 
-    public double getNewCameraPitch(double cameraPitch, double cameraYaw){
+    private double getNewCameraPitch(double cameraPitch, double cameraYaw){
         double theta = finalXOffset*Math.tan(cameraPitch);
         theta *= Math.abs(1d/Math.cos(cameraYaw));
         theta -= initialOffsetY;
-        double denominator = distanceFromSurface * Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
+        double denominator = distanceFromSurface;
+        denominator *= Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
         theta /= denominator;
         theta = Math.atan(theta);
         return theta;

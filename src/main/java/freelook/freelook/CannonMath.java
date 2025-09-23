@@ -5,9 +5,9 @@ import org.joml.Vector2d;
 public class CannonMath {
     final int cannonRot = 1;
     final double initialOffsetX = 0.025;
-    final double initialOffsetY = 0.25 - 0.0068;
+    final double initialOffsetY = 0.25 + 0.0253;
     final double initialOffsetZ = 0;
-    final double surfaceOffset = -0.25 + 0.0253;
+    final double surfaceOffset = -0.25 - 0.0068;
     final double distanceFromSurface = 0.375;
     //non-final variables are defined in the constructor as their values depend on non constants.
     double sign = 0;

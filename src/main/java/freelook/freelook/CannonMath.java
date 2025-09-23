@@ -22,61 +22,59 @@ public class CannonMath {
     }
 
     private double getDoRotation(double cameraYaw){
-        if(cameraYaw <= -Math.PI/2d) return -1.0;
-        if(cameraYaw >= Math.PI/2d) return 1.0;
+        if(cameraYaw <= -Math.PI/2.0) return -1.0;
+        if(cameraYaw > Math.PI/2.0) return 1.0;
         return 0.0;
     }
 
     private double getRotatedYaw(double cameraYaw){
         cameraYaw += Math.PI*cannonRot/2.0;
-        while(cameraYaw >= Math.PI){
-            cameraYaw -= Math.PI;
-        }
-        while(cameraYaw <= Math.PI){
-            cameraYaw += Math.PI;
-        }
         return cameraYaw;
     }
 
     private double undoYawRotation(double cameraYaw){
         cameraYaw -= Math.PI*cannonRot/2.0;
-        while(cameraYaw >= Math.PI){
-            cameraYaw -= Math.PI;
-        }
-        while(cameraYaw <= Math.PI){
-            cameraYaw += Math.PI;
-        }
         return cameraYaw;
     }
 
 
-    private double getNewCameraYaw(double cameraPitch, double cameraYaw){
+    public double getNewCameraYaw(double cameraYaw){
         doRotation = getDoRotation(cameraYaw);
         double theta = Math.atan((finalXOffset*Math.tan(cameraYaw) - initialOffsetZ)/(distanceFromSurface));
-        theta += Math.PI*doRotation;
-        return undoYawRotation(theta);
+        theta = clamp(theta);
+        return theta;
     }
 
-    private double getNewCameraPitch(double cameraPitch, double cameraYaw){
+    public double getNewCameraPitch(double cameraPitch, double cameraYaw){
         double theta = finalXOffset*Math.tan(cameraPitch);
-        theta *= Math.abs(1d/Math.cos(cameraYaw));
+        theta *= Math.abs(1.0/Math.cos(cameraPitch));
         theta -= initialOffsetY;
-        double denominator = Math.abs(1d/Math.cos(getNewCameraYaw(cameraPitch, cameraYaw)));
+        double denominator = Math.abs(1.0/Math.cos(getNewCameraYaw(cameraYaw)));
         denominator *= distanceFromSurface;
         theta /= denominator;
         theta = Math.atan(theta);
-        return theta;
+        return clamp(theta);
+    }
+
+    private double clamp(double x){
+        while(x >= Math.PI){
+            x-=Math.PI/2.0;
+        }
+        while(x <= -Math.PI){
+            x+=Math.PI/2.0;
+        }
+        return x;
     }
 
     public Vector2d getNewCameraDirection(double cameraYaw, double cameraPitch){
         cameraYaw = Math.toRadians(cameraYaw);
-        cameraPitch = Math.toRadians(cameraPitch);
+        cameraPitch = -Math.toRadians(cameraPitch);
         Vector2d vec = new Vector2d();
         double rotatedYaw = getRotatedYaw(cameraYaw);
-        vec.x = getNewCameraYaw(cameraPitch, rotatedYaw);
-        vec.y = getNewCameraPitch(cameraPitch, vec.x);
+        vec.x = clamp(undoYawRotation(getNewCameraYaw(rotatedYaw)) + Math.PI*doRotation);
+        vec.y = getNewCameraPitch(cameraPitch, rotatedYaw);
         vec.x = Math.toDegrees(vec.x);
-        vec.y = Math.toDegrees(vec.y);
+        vec.y = -Math.toDegrees(vec.y);
         return vec;
     }
 }

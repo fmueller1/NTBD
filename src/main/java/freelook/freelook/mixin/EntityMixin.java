@@ -35,13 +35,9 @@ public abstract class EntityMixin implements CameraOverriddenEntity {
         this.cameraPitch = MathHelper.clamp(this.cameraPitch + (float) pitchDelta, -90.0f, 90.0f);
         this.cameraYaw += (float) yawDelta;
 
-        double yawRads = Math.toRadians(this.cameraYaw);
-        double pitchRads = Math.toRadians(this.cameraPitch);
-        Vector2d newDirection = FreeLookMod.cannonMath.getNewCameraDirection(pitchRads, yawRads);
-        double translatedYaw = Math.toDegrees(newDirection.x);
-        double translatedPitch = Math.toDegrees(newDirection.y);
-        System.out.println("("+ translatedYaw + ", " + translatedPitch + ")");
-        this.setAngles((float)translatedYaw,(float)translatedPitch);
+        Vector2d newDirection = FreeLookMod.cannonMath.getNewCameraDirection(this.cameraYaw, this.cameraPitch);
+        System.out.println("("+ newDirection.x + ", " + newDirection.y + ")");
+        this.setAngles((float)newDirection.x,(float)newDirection.y);
 
         ci.cancel();
     }

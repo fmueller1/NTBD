@@ -68,11 +68,15 @@ public class CannonMath {
         return theta;
     }
 
-    public Vector2d getNewCameraDirection(double cameraPitch, double cameraYaw){
+    public Vector2d getNewCameraDirection(double cameraYaw, double cameraPitch){
+        cameraYaw = Math.toRadians(cameraYaw);
+        cameraPitch = Math.toRadians(cameraPitch);
         Vector2d vec = new Vector2d();
         double rotatedYaw = getRotatedYaw(cameraYaw);
         vec.x = getNewCameraYaw(cameraPitch, rotatedYaw);
         vec.y = getNewCameraPitch(cameraPitch, vec.x);
+        vec.x = Math.toDegrees(vec.x);
+        vec.y = Math.toDegrees(vec.y);
         return vec;
     }
 }

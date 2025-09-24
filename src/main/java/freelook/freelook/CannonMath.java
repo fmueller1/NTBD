@@ -57,13 +57,7 @@ public class CannonMath {
     }
 
     private double clamp(double x){
-        while(x >= Math.PI){
-            x-=Math.PI/2.0;
-        }
-        while(x <= -Math.PI){
-            x+=Math.PI/2.0;
-        }
-        return x;
+        return (x+Math.PI)%(2*Math.PI)-Math.PI;
     }
 
     public Vector2d getNewCameraDirection(double cameraYaw, double cameraPitch){

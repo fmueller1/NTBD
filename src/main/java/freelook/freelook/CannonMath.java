@@ -5,10 +5,11 @@ import org.joml.Vector2d;
 public class CannonMath {
     final int cannonRot = 1;
     final double initialOffsetX = 0;
-    final double initialOffsetY = 0.25 + 0.022;
+    final double initialOffsetY = 0.25 + 0.02525;
     final double initialOffsetZ = 0;
     final double surfaceOffset = -0.2568;
     final double distanceFromSurface = 0.375;
+    final double pitchScaleConstant = 0.1869;
     //non-final variables are defined in the constructor as their values depend on the previously constants.
     double sign = 0;
     double finalXOffset = 0;
@@ -62,7 +63,7 @@ public class CannonMath {
 
     public Vector2d getNewCameraDirection(double cameraYaw, double cameraPitch){
         cameraYaw = clamp(Math.toRadians(cameraYaw));
-        cameraPitch = clamp(-Math.toRadians(cameraPitch));
+        cameraPitch = clamp(-Math.toRadians(cameraPitch * pitchScaleConstant));
         Vector2d vec = new Vector2d();
         double rotatedYaw = getRotatedYaw(cameraYaw);
         vec.x = clamp(undoYawRotation(getNewCameraYaw(rotatedYaw)) + Math.PI*doRotation);
